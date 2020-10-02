@@ -15,7 +15,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $Authors = Author::with(['posts'])->get();
+        $Authors = Author::with(['post'])->get();
 
         return response()->json(
         	["message" => $Authors],
@@ -72,7 +72,7 @@ class AuthorController extends Controller
     public function show($id)
     {
 
-        $Author = Author::whereId($id)->with(['posts'])->get();
+        $Author = Author::whereId($id)->with(['post'])->get();
 
         return response()->json(
         	["message" => $Author],

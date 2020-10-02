@@ -13,7 +13,7 @@ class Post extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function authors()
+    public function author()
     {
         return $this->belongsTo(Author::class);
     }

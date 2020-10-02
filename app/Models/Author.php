@@ -13,7 +13,7 @@ class Author extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function posts()
+    public function post()
     {
         return $this->hasMany(Post::class);
     }

@@ -18,7 +18,7 @@ class PostController extends Controller
     public function index()
     {
         //Genera la consulta de todos los posts
-        $Posts = Post::with(['authors'])->get();
+        $Posts = Post::with(['author'])->get();
 
         //Recorre los posts para asignar la ruta a la imagen
         foreach ($Posts as $id => $data) {
@@ -55,7 +55,7 @@ class PostController extends Controller
             'title' => 'required|string',
             'content' => 'required',
             'image' => 'required',
-            'authors_id' => 'required|numeric'
+            'author_id' => 'required|numeric'
         ]);
 
         //Retorna los errores
@@ -75,7 +75,7 @@ class PostController extends Controller
         $Post->title = $request->get('title');
         $Post->content = $request->get('content');
         $Post->image = $name;
-        $Post->authors_id = $request->get('authors_id');
+        $Post->author_id = $request->get('author_id');
         $Post->save();
 
         //Retorna resultado
@@ -93,7 +93,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $Post = Post::whereId($id)->with(['authors'])->get();
+        $Post = Post::whereId($id)->with(['author'])->get();
         $Post[0]['image'] =  url(\Storage::url($Post[0]['image']));
 
         return response()->json(
@@ -126,7 +126,7 @@ class PostController extends Controller
             'title' => 'required|string',
             'content' => 'required',
             'image' => 'required',
-            'authors_id' => 'required|numeric'
+            'author_id' => 'required|numeric'
         ]);
 
         if($validator->fails()){
@@ -148,7 +148,7 @@ class PostController extends Controller
         $Post->title = $request->get('title');
         $Post->content = $request->get('content');
         $Post->image = $name;
-        $Post->authors_id = $request->get('authors_id');
+        $Post->author_id = $request->get('author_id');
         $Post->save();
 
         return response()->json(
