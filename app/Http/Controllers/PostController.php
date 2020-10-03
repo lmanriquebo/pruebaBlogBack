@@ -22,7 +22,9 @@ class PostController extends Controller
 
         //Recorre los posts para asignar la ruta a la imagen
         foreach ($Posts as $id => $data) {
-            $Posts[$id]['image'] =  url(\Storage::url($data['image']));
+            $ruta = Storage::path("public/".$data['image']);
+            $imagen = file_get_contents($ruta);
+            $data['image'] = "data:image/png;base64,".base64_encode($imagen);
         }
 
         //Retorna posts
@@ -80,7 +82,11 @@ class PostController extends Controller
 
         //Retorna resultado
         return response()->json(
-        	["message" => "Post {$request->get('title')} creado exitosamente."],
+            ["message" => [
+                            "status" => 2000,
+                            "response" =>  "Post {$request->get('title')} creado exitosamente."
+                         ]
+            ],
         	200
         );
     }
@@ -94,7 +100,9 @@ class PostController extends Controller
     public function show($id)
     {
         $Post = Post::whereId($id)->with(['author'])->get();
-        $Post[0]['image'] =  url(\Storage::url($Post[0]['image']));
+        $ruta = Storage::path("public/".$Post[0]['image']);
+        $imagen = file_get_contents($ruta);
+        $Post[0]['image'] = "data:image/png;base64,".base64_encode($imagen);
 
         return response()->json(
         	["message" => $Post],
@@ -152,7 +160,11 @@ class PostController extends Controller
         $Post->save();
 
         return response()->json(
-        	["message" => "Post {$request->get('title')} actualizado exitosamente."],
+            ["message" => [
+                            "status" => 2000,
+                            "response" =>  "Post {$request->get('title')} actualizado exitosamente."
+                         ]
+            ],
         	200
         );
     }
@@ -168,7 +180,11 @@ class PostController extends Controller
         Post::whereId($id)->delete();
 
         return response()->json(
-        	["message" => "El post fue eliminado exitosamente."],
+            ["message" => [
+                            "status" => 2000,
+                            "response" =>  "El post fue eliminado exitosamente."
+                         ]
+            ],
         	200
         );
     }

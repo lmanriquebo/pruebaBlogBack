@@ -58,7 +58,11 @@ class AuthorController extends Controller
         $Author->save();
 
         return response()->json(
-        	["message" => "Autor {$request->get('first_name')} {$request->get('last_name')} creado exitosamente."],
+            ["message" => [
+                            "status" => 2000,
+                            "response" => "Autor {$request->get('first_name')} {$request->get('last_name')} creado exitosamente."
+                         ]
+            ],
         	200
         );
     }
@@ -117,7 +121,11 @@ class AuthorController extends Controller
         $Author->save();
 
         return response()->json(
-        	["message" => "Autor {$request->get('first_name')} {$request->get('last_name')} actualizado exitosamente."],
+            ["message" => [
+                            "status" => 2000,
+                            "response" =>  "Autor {$request->get('first_name')} {$request->get('last_name')} actualizado exitosamente."
+                         ]
+            ],
         	200
         );
     }
@@ -133,7 +141,11 @@ class AuthorController extends Controller
         Author::whereId($id)->delete();
 
         return response()->json(
-        	["message" => "El autor fue eliminado exitosamente."],
+            ["message" => [
+                            "status" => 2000,
+                            "response" =>  "El autor fue eliminado exitosamente."
+                         ]
+            ],
         	200
         );
     }
